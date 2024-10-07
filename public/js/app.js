@@ -478,6 +478,8 @@ function playerDoubleDown() {
   playerHit();
 }
 
+// *************************************************************
+
 // *************************DEALER PLAY*************************
 
 function dealerPlay() {
@@ -497,10 +499,13 @@ function dealerPlay() {
   }
 }
 
+// *************************************************************
+
 // ***********************FINAL COMPARE*************************
 
 function finalCompareGo() {
   // This should fire up for all players
+  // if dealer sum.length === 2. Fix dealer sum before proceeding (I know this block of code is repetetive, will fix later)
   if (dealer.sum.length === 2 && dealer.sum[1] <= 21) {
     dealer.sum.shift();
     dealer.sum = dealer.sum[0];
@@ -539,6 +544,8 @@ function finalCompareGo() {
     $("#player-result-sum-box").addClass("color-green");
   } else if (dealer.sum === theClient.sum) {
     $("#player-result-big-answer").text("DRAW");
+    // $("#player-result-big-sum").text(theClient.bet)
+    // $("#player-result-big-plus-minus").text("+")
   } else {
     youLose.play();
     $("#player-result-big-answer").text("DEALER WINS");
@@ -765,12 +772,16 @@ function terminatePlayerFromSlot() {
   }
 }
 
+// *************************************************************
+
 // ******************PLAYER ACTION ANSWERS**********************
 
 function bust() {
   player.cards = [];
   sendPlayerNext();
 }
+
+// *************************************************************
 
 // ****************PLAYER CARDS FILTER SYSTEM*******************
 
@@ -816,12 +827,17 @@ function compareSum() {
 // container for the 3 ace filters
 function compareSumAce() {
   playerAceDeckAce(); // <--- Check if player has a ACE && next card has ACE
+  // playerNoAceDeckAce() // <--- Check if player has NOT ACE && next card has ACE
+  // playerAceDeckNoAce() // <--- Check if Player has ACE && next card has NO ACE
+
   if (dealersTurn === true) {
     setTimeout(outputCardSumAceDealer, 1000); // compare & output sum for dealer
   } else {
     setTimeout(outputCardSumAce, 500); // compare & output sum
   }
 }
+
+// *************************************************************
 
 // ******************PLAYER ACTION OUTPUTS**********************
 
@@ -929,6 +945,8 @@ function outputCardSumDealer() {
   }
 }
 
+// *************************************************************
+
 // *******************UTILITIES************************
 
 function givePlayerCard() {
@@ -982,6 +1000,7 @@ function hasPlayers0Left() {
 // ****************************************************
 
 // ########## DOM MANIPULATION ##########
+// Note: this section uses jQuery
 // When a player joins with invite link, He can click the button "Join Room"
 if (window.location.href.length - 1 > window.origin.length) {
   $("#btnCreate").addClass("hide-element");
@@ -1126,6 +1145,9 @@ function setTimer(duration) {
         ws.send(JSON.stringify(payLoad));
       }, 100);
 
+      // setTimeout(function() {
+      //   startTimer()
+      // }, 2000)
     }
 
     // CLEARS TIMER

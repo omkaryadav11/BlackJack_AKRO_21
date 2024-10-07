@@ -24,9 +24,6 @@ let gameOn = null;
 
 wss.on("connection", (ws) => {
   ws.on("open", () => console.log("opened"));
-  ws.on("close", () => {
-    console.log("closed");
-  });
 
   ws.on("message", (message) => {
     const result = JSON.parse(message);
@@ -283,25 +280,26 @@ wss.on("connection", (ws) => {
       const game = games[gameId];
       if (!game) return;
       let sender = result.sender;  
+
+      const uarr = game.spectators.reduce((acc, curr) => {
+        if(!acc.some(item => item === curr)){
+          acc.push(curr);
+        }
+        return acc;
+      },[]);
+
       const chatPayload = {
         method: "chatMessage",
         sender: sender,
         text: message,
+        spec: game.spectators,
+        uarr: uarr,
       };
       
-      
-      // Broadcast message to all spectators and players in the game
-      game.spectators.forEach((spectator) => {
-        console.log("This is sender: "+chatPayload.sender);
+
+      uarr.forEach((spectator) => {
         clients[spectator.clientId].ws.send(JSON.stringify(chatPayload));
       });
- 
-      if (game.players) {
-        game.players.forEach((player) => {
-          console.log("This is sender: "+chatPayload.sender);
-          clients[player.clientId].ws.send(JSON.stringify(chatPayload));
-        });
-      }
     }
 
     if (result.method === "thePlay") {

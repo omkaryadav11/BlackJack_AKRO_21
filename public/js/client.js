@@ -199,7 +199,6 @@ function sendMessage() {
     sender: mailer,
   };
 
-  console.log("Sending message:", payLoad); // Debug log
   ws.send(JSON.stringify(payLoad));
   chatInput.value = ''; // Clear the input box after sending
 }
@@ -787,7 +786,6 @@ ws.onmessage = (message) => {
 
     if (dealer.sum > 0) {
       for (let i = 0; i < players.length; i++) {
-        console.log("reached here");
         for (let s = 0; s < playerSlotHTML.length; s++) {
           if (players[i].clientId === playerSlotHTML[s]) {
             playerSlot[
@@ -1165,8 +1163,6 @@ ws.onmessage = (message) => {
     game = response.game;
     spectators = response.spectators;
     players = response.players;
-    console.log("these are the player's array: " + game.players);
-    console.log("these are the spectators's array: " + spectators);
     theSlot = response.theSlot;
     user = response.user;
     // theClient = response.theClient
@@ -1236,7 +1232,7 @@ ws.onmessage = (message) => {
   // Ensure we're handling the correct method
   if (response.method === "chatMessage") {
     const { sender, text, timestamp } = response;
-    console.log("Received chat message from:", sender, text, timestamp); // Debug log
+    const {spec, uarr} = response;
     displayMessage(sender, text, timestamp);
 
 
