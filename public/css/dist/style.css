@@ -1837,9 +1837,10 @@ i {
 
 /* Chat container */
 #chatContainer {
-  position: fixed;
-  top: 48%; /* Adjusted to start at 40% from the top */
-  left: 10%; /* Keep it aligned with the chat icon */
+  position: absolute;
+  cursor: move;
+  top: 2px  ; /* Adjusted to start at 40% from the top */
+  left: 2%; /* Keep it aligned with the chat icon */
   width: 20%;
   max-height: 40%;
   z-index: 100;
