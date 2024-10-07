@@ -1245,6 +1245,11 @@ ws.onmessage = (message) => {
     document.getElementById("chatIcon").addEventListener('animationend', function() {
         document.getElementById("chatIcon").classList.remove('shake');
     }, { once: true });
+
+    setTimeout(() => {
+      document.getElementById("chatIconImage").src = '../imgs/chatClosed.png';
+    }, 4000);
+
   }
 
   // This updates theClient and players array accordingly
