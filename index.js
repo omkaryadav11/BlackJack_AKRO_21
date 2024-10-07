@@ -3,7 +3,7 @@ const app = express();
 const server = require("http").createServer(app);
 const PORT = 3001;
 const WebSocket = require("ws");
-const WEB_URL = `https://bjarko21.onrender.com`;
+const WEB_URL = `https://bjarko21.onrender.com/`;
 
 const wss = new WebSocket.Server({ server: server });
 
